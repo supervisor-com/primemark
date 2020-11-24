@@ -1,0 +1,55 @@
+<h1>Primemark</h1>
+
+<h2 id="result"></h2>
+
+<p>Set query parameter ?n=AMOUNT, or use these helpful links:</p>
+<ul>
+  <li><a href="?n=1000000">Try with 1000000</a></li>
+  <li><a href="?n=2000000">Try with 2000000</a></li>
+  <li><a href="?n=5000000">Try with 5000000</a></li>
+
+</ul>
+
+<script>
+const urlParams = new URLSearchParams(window.location.search);;
+const N = urlParams.get('n') || 1000000;
+
+const startedAt = Date.now();
+const updater = setInterval(()=>{
+  var delta = ((Date.now() - startedAt) / 1000.0).toFixed(1)
+  result.textContent = "Generated " + primes.length + " / " + N + " primes in " + delta + "s";
+}, 100)
+
+const primes = [2];
+
+function is_prime(x) {
+    for (let i = 0; primes[i] * primes[i] <= x; ++i) {
+        if (x % primes[i] == 0) {
+            return false;
+        }
+    }
+    return true;
+}
+
+let x = 3;
+
+const primer = setInterval(()=>{
+  let batch = 1000000;
+  let offset = x + batch;
+
+  for (let i=x; i<offset; i++) {
+    if (is_prime(i)) {
+      primes.push(i);
+    }
+  }
+  x = x + batch;
+
+  if (primes.length >= N) {
+    clearInterval(primer);
+    clearInterval(updater);
+    let delta = ((Date.now() - startedAt) / 1000.0).toFixed(1)
+    result.textContent = "Generated " + N + " primes in " + delta + "s";
+  }
+}, 1)
+
+</script>
