@@ -1,4 +1,10 @@
-<h1>Primemark</h1>
+<style>
+  #result {
+    font-size: 5vw;
+  }
+</style>
+
+<h1>Primemark by <a href="https://www.supervisor.com">supervisor.com</a></h1>
 
 <h2 id="result"></h2>
 
@@ -11,6 +17,8 @@
 </ul>
 
 <script>
+// based on https://github.com/tsoding/prime-benchmark/blob/master/prime-naive.js
+
 const urlParams = new URLSearchParams(window.location.search);;
 const N = urlParams.get('n') || 1000000;
 
